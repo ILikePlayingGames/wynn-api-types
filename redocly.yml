@@ -1,0 +1,4 @@
+extends:
+  - minimal
+decorators:
+    remove-unused-components: on

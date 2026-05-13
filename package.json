@@ -1,0 +1,39 @@
+{
+  "name": "wynn-api-types",
+  "version": "1.0.0",
+  "description": "TypeScript types for the Wynncraft API",
+  "author": "ILikePlayingGames",
+  "license": "MIT",
+  "files": [
+    "src/wynncraft.d.ts"
+  ],
+  "scripts": {
+    "build": "npx openapi-typescript https://docs.wynncraft.com/openapi.json -o src/wynncraft.d.ts && npx eslint --fix"
+  },
+  "engines": {
+    "node": ">=25",
+    "npm": ">=11"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=25",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11",
+      "onFail": "warn"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/node": "^25.5.0",
+    "eslint": "10.2.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.0",
+    "openapi-typescript": "^7.13.0"
+  }
+}

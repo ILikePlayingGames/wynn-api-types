@@ -1,0 +1,64 @@
+{
+  "paths": {
+    "/player/{username}": {
+      "get": {
+        "responses": {
+          "300": {
+            "description": "Multiple player profiles found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerMultiSelector"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlayerMultiSelector": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Error"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "objects": {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/PlayerMultiSelectorPartialPlayer"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PlayerMultiSelectorPartialPlayer": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "$ref": "#/components/schemas/Player/properties/username"
+          },
+          "rank": {
+            "$ref": "#/components/schemas/Player/properties/rank"
+          },
+          "supportRank": {
+            "$ref": "#/components/schemas/Player/properties/supportRank"
+          },
+          "shortenedRank": {
+            "$ref": "#/components/schemas/Player/properties/shortenedRank"
+          },
+          "legacyRankColour": {
+            "$ref": "#/components/schemas/Player/properties/legacyRankColour"
+          },
+          "rankBadge": {
+            "$ref": "#/components/schemas/Player/properties/rankBadge"
+          }
+        }
+      }
+    }
+  }
+}

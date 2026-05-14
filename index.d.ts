@@ -58,40 +58,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    '/player/{username}': {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get player profile
-         * @description <Note>
-         *     This endpoint is cached for <Badge intent="success" minimal>2 minutes</Badge> in the <Badge intent="warning" minimal>USER</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>PLAYER</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
-         *     </Note>
-         *
-         *     <Warning>
-         *     Player stats are subject to [Access Rules](/privacy), which can hide some of the stats. Check the `restrictions` object to see which access rules affected the response.
-         *     </Warning>
-         *     <Info>
-         *     It is recommended to request players by UUID. Username lookups can return `300 MultipleObjectsReturned` with a multi-selector response when more than one player matches the query.
-         *     </Info>
-         *     `previousRanking` is stored daily based on player activity. Subtracting `previousRanking` from the current ranking gives the player's leaderboard progression.
-         *
-         *     <Info>
-         *     Use `fullResult` to include full character data. The `characters` object uses the same structure as [GET /player/{username}/characters/{uuid}](api:GET/player/{username}/characters/{uuid}).
-         *     </Info>
-         */
-        get: operations['get-player'];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     '/player/{username}/characters': {
         parameters: {
             query?: never;
@@ -834,6 +800,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    '/player/{username}': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get player profile
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="success" minimal>2 minutes</Badge> in the <Badge intent="warning" minimal>USER</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>PLAYER</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     <Warning>
+         *     Player stats are subject to [Access Rules](/privacy), which can hide some of the stats. Check the `restrictions` object to see which access rules affected the response.
+         *     </Warning>
+         *     <Info>
+         *     It is recommended to request players by UUID. Username lookups can return `300 MultipleObjectsReturned` with a multi-selector response when more than one player matches the query.
+         *     </Info>
+         *     `previousRanking` is stored daily based on player activity. Subtracting `previousRanking` from the current ranking gives the player's leaderboard progression.
+         *
+         *     <Info>
+         *     Use `fullResult` to include full character data. The `characters` object uses the same structure as [GET /player/{username}/characters/{uuid}](api:GET/player/{username}/characters/{uuid}).
+         *     </Info>
+         */
+        get: operations['get-player'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1461,7 +1461,7 @@ export interface components {
          * ItemMajorIdKey
          * @enum {string}
          */
-        ItemMajorIdKey: 'evershot' | 'forestSBlessing' | 'fallout' | 'twistingThreads' | 'pioneerSEcho' | 'altruism' | 'freerunner' | 'vedette' | 'realityRevision' | 'seekingModule' | 'fission' | 'freneticSpirit' | 'netShot' | 'deathSentence' | 'regicide' | 'selfSufficient' | 'napalm' | 'riverofSouls' | 'comboStomp' | 'gunkShot' | 'heartbeat' | 'methodical' | 'fantheHammer' | 'wormhole' | 'punishment' | 'grandInfluence' | 'cherryBombs' | 'greed' | 'windsurf' | 'hurricaneSEye' | 'sorcery' | 'rovingAssassin' | 'transcendence' | 'efflorescence' | 'spaceGlide' | 'heatShimmer' | 'soulEater' | 'juggle' | 'flurryofBlows' | 'incisionElegy' | 'lightningCrash' | 'livingMuseum' | 'manicEdge' | 'enlightenment' | 'ignitionWhirlwind' | 'lifestream' | 'peacefulEffigy' | 'stringsofFate' | 'ergosphere' | 'deadWeight' | 'sublimation' | 'furiousEffigy' | 'faustianGambit' | 'totemicFuse' | 'geocentrism' | 'gruesomeKnots' | 'starcrossed' | 'chaosReach' | 'flainRemnants' | 'litFuse' | 'rally' | 'hellfire' | 'paragon' | 'divineHonor' | 'trollBarge' | 'tidalDrift' | 'guardian' | 'lastResort' | 'saviourSSacrifice' | 'scarceComfort' | 'vitriol' | 'tackle' | 'divineRight' | 'slowBoil' | 'stagnantAir' | 'oldSpark' | 'oneselfUntoAll' | 'temblor' | 'overwhelm' | 'meteorCrash' | 'earthenSplinter' | 'entropy' | 'fixate' | 'lustrate' | 'inversion' | 'cosmicCapture' | 'orbitalChain' | 'perfectRecall' | 'gravityWell' | 'displace' | 'lockdown' | 'plague' | 'solarWind' | 'wavebreak' | '֎' | 'gentleGlow' | 'blindingLights' | 'oneiro' | 'dauntlessInferno' | 'fissure' | 'flashfreeze' | 'perilousFlare' | 'explosiveImpact' | 'escapeRoute' | 'lightweight' | 'pirouette' | 'lunge' | 'taunt' | 'desperateMeasures' | 'rockShield' | 'cannulate' | 'snowySteps' | 'phoenixBorn' | 'superconductor' | 'magnet' | 'alterEgo' | 'mangle' | 'intangible' | 'iceStorm' | 'pounce' | 'hawkeye' | 'orbwalk' | 'burntShadows' | 'frightorFlight' | 'festiveSpirit' | 'sunEater' | 'recklessAbandon' | 'expunge' | 'brachiate' | 'rustedIchor' | 'findThyself' | 'madness' | 'clamber' | 'splitSecond' | 'spectralMemory' | 'insoluble' | 'boundbyBlood' | 'mobMentality' | 'lasso' | 'coagulate' | 'flightBurst' | 'culicidaeCreed' | 'powerFist' | 'brutalBlow';
+        ItemMajorIdKey: 'evershot' | 'forestSBlessing' | 'fallout' | 'twistingThreads' | 'pioneerSEcho' | 'altruism' | 'freerunner' | 'vedette' | 'realityRevision' | 'seekingModule' | 'fission' | 'freneticSpirit' | 'netShot' | 'deathSentence' | 'regicide' | 'selfSufficient' | 'napalm' | 'riverofSouls' | 'comboStomp' | 'gunkShot' | 'heartbeat' | 'methodical' | 'fantheHammer' | 'wormhole' | 'punishment' | 'grandInfluence' | 'cherryBombs' | 'greed' | 'windsurf' | 'hurricaneSEye' | 'sorcery' | 'rovingAssassin' | 'transcendence' | 'efflorescence' | 'spaceGlide' | 'heatShimmer' | 'soulEater' | 'juggle' | 'flurryofBlows' | 'incisionElegy' | 'lightningCrash' | 'livingMuseum' | 'manicEdge' | 'enlightenment' | 'ignitionWhirlwind' | 'lifestream' | 'peacefulEffigy' | 'stringsofFate' | 'ergosphere' | 'deadWeight' | 'sublimation' | 'furiousEffigy' | 'faustianGambit' | 'totemicFuse' | 'geocentrism' | 'gruesomeKnots' | 'starcrossed' | 'chaosReach' | 'flainRemnants' | 'litFuse' | 'rally' | 'hellfire' | 'paragon' | 'divineHonor' | 'trollBarge' | 'tidalDrift' | 'guardian' | 'lastResort' | 'saviourSSacrifice' | 'scarceComfort' | 'vitriol' | 'tackle' | 'divineRight' | 'slowBoil' | 'stagnantAir' | 'oldSpark' | 'oneselfUntoAll' | 'temblor' | 'overwhelm' | 'meteorCrash' | 'earthenSplinter' | 'entropy' | 'fixate' | 'lustrate' | 'inversion' | 'cosmicCapture' | 'orbitalChain' | 'perfectRecall' | 'gravityWell' | 'displace' | 'lockdown' | 'plague' | 'solarWind' | 'wavebreak' | 'ÖŽ' | 'gentleGlow' | 'blindingLights' | 'oneiro' | 'dauntlessInferno' | 'fissure' | 'flashfreeze' | 'perilousFlare' | 'explosiveImpact' | 'escapeRoute' | 'lightweight' | 'pirouette' | 'lunge' | 'taunt' | 'desperateMeasures' | 'rockShield' | 'cannulate' | 'snowySteps' | 'phoenixBorn' | 'superconductor' | 'magnet' | 'alterEgo' | 'mangle' | 'intangible' | 'iceStorm' | 'pounce' | 'hawkeye' | 'orbwalk' | 'burntShadows' | 'frightorFlight' | 'festiveSpirit' | 'sunEater' | 'recklessAbandon' | 'expunge' | 'brachiate' | 'rustedIchor' | 'findThyself' | 'madness' | 'clamber' | 'splitSecond' | 'spectralMemory' | 'insoluble' | 'boundbyBlood' | 'mobMentality' | 'lasso' | 'coagulate' | 'flightBurst' | 'culicidaeCreed' | 'powerFist' | 'brutalBlow';
         /** ItemSearchRequestMajorIds1 */
         ItemSearchRequestMajorIds1: components['schemas']['ItemMajorIdKey'][];
         /** ItemSearchRequestMajorIds */
@@ -1863,6 +1863,19 @@ export interface components {
             content: string;
             comments: string;
         };
+        PlayerMultiSelector: components['schemas']['Error'] & {
+            objects?: {
+                [key: string]: components['schemas']['PlayerMultiSelectorPartialPlayer'];
+            };
+        };
+        PlayerMultiSelectorPartialPlayer: {
+            username?: components['schemas']['Player']['username'];
+            rank?: components['schemas']['Player']['rank'];
+            supportRank?: components['schemas']['Player']['supportRank'];
+            shortenedRank?: components['schemas']['Player']['shortenedRank'];
+            legacyRankColour?: components['schemas']['Player']['legacyRankColour'];
+            rankBadge?: components['schemas']['Player']['rankBadge'];
+        };
     };
     responses: never;
     parameters: never;
@@ -1919,50 +1932,6 @@ export interface operations {
             };
             /** @description No eligible online identity could be resolved. */
             403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    'application/json': components['schemas']['Error'];
-                };
-            };
-        };
-    };
-    'get-player': {
-        parameters: {
-            query?: {
-                /** @description Presence-based flag that expands responses. Send it without a value as `?fullResult`. Using `?fullResult=true` or `?fullResult=false` is not accepted. */
-                fullResult?: components['schemas']['PlayerUsernameGetParametersFullResult'];
-            };
-            header?: never;
-            path: {
-                /** @description Username or UUID accepted by the player route. */
-                username: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Player profile. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    'application/json': components['schemas']['Player'];
-                };
-            };
-            /** @description No matching player was found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    'application/json': components['schemas']['Error'];
-                };
-            };
-            /** @description Player payload construction failed. */
-            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2892,6 +2861,59 @@ export interface operations {
                 };
                 content: {
                     'application/json': components['schemas']['LatestNewsEntry'][];
+                };
+            };
+        };
+    };
+    'get-player': {
+        parameters: {
+            query?: {
+                /** @description Presence-based flag that expands responses. Send it without a value as `?fullResult`. Using `?fullResult=true` or `?fullResult=false` is not accepted. */
+                fullResult?: components['schemas']['PlayerUsernameGetParametersFullResult'];
+            };
+            header?: never;
+            path: {
+                /** @description Username or UUID accepted by the player route. */
+                username: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Player profile. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['Player'];
+                };
+            };
+            /** @description Multiple player profiles found. */
+            300: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['PlayerMultiSelector'];
+                };
+            };
+            /** @description No matching player was found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['Error'];
+                };
+            };
+            /** @description Player payload construction failed. */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['Error'];
                 };
             };
         };

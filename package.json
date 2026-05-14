@@ -5,10 +5,13 @@
   "author": "ILikePlayingGames",
   "license": "MIT",
   "files": [
-    "src/wynncraft.d.ts"
+    "index.d.ts",
+    "package.json",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
-    "build": "npx openapi-typescript https://docs.wynncraft.com/openapi.json -o src/wynncraft.d.ts && npx eslint --fix"
+    "build": "npx openapi-typescript https://docs.wynncraft.com/openapi.json -o index.d.ts && npx eslint --fix"
   },
   "engines": {
     "node": ">=25",

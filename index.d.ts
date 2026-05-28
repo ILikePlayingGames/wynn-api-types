@@ -153,6 +153,75 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    '/oauth/me': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get OAuth2 identity
+         * @description <Warning>
+         *     Try it will not return usable data for this route. It depends on a live OAuth2 authentication context outside the docs.
+         *     </Warning>
+         *
+         *     <Info>
+         *     Get started with OAuth by reading [our guide](/oauth2/creating-an-application).
+         *     </Info>
+         *
+         *     This endpoint returns the authenticated OAuth2 application context and the linked player profiles available to the authorized user.
+         *
+         *     <Info>
+         *     The `profiles` object contains the player profiles that belong to the authorizing user. Access-rule bypass through OAuth2 only applies to those linked profiles when the user granted permission for it.
+         *     </Info>
+         */
+        get: operations['get-oauth-identity'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/oauth/token': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Exchange OAuth2 token
+         * @description <Warning>
+         *     This endpoint expects `application/x-www-form-urlencoded`.
+         *     </Warning>
+         *     <Warning>
+         *     Try it will not return usable data for this route. It depends on a live OAuth2 authentication context outside the docs.
+         *     </Warning>
+         *     <Info>
+         *     Get started with OAuth by reading [our guide](/oauth2/creating-an-application).
+         *     </Info>
+         *     <Info>
+         *     Only the `authorization_code` grant type is supported. Authorization codes are one-time use and expire after 5 minutes.
+         *     </Info>
+         *
+         *     PKCE is supported for both Private and Public applications but Public applications must send `code_verifier` and must not send `client_secret`.
+         *
+         *     Private applications must send `client_secret`.
+         *
+         *     Only `S256` PKCE is supported.
+         */
+        post: operations['exchange-oauth-token'];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     '/guild/list/guild': {
         parameters: {
             query?: never;
@@ -187,8 +256,37 @@ export interface paths {
          * @description <Note>
          *     This endpoint is cached for <Badge intent="success" minimal>10 seconds</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>GUILD</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
          *     </Note>
+         *     <Warning>
+         *     The `resources` field is refreshed every <Badge intent="warning" minimal>1 minute</Badge>. All other territory fields continue to refresh every <Badge intent="success" minimal>10 seconds</Badge>.
+         *     </Warning>
          */
         get: operations['list-guild-territories'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/guild/seasons': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List guild seasons
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="warning" minimal>10 minutes</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>GUILD</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     Only enabled seasons whose `initDate` is in the past are returned.
+         *
+         *     Use this endpoint to inspect public guild season rules, including SR gain values and reward thresholds.
+         */
+        get: operations['list-guild-seasons'];
         put?: never;
         post?: never;
         delete?: never;
@@ -362,6 +460,60 @@ export interface paths {
         get: operations['quick-search-items'];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/item/recipe/database': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List recipe database entries
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="error" minimal>1 hour</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>ITEMS</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *     <Info>
+         *     `full_result` bypasses pagination and returns the full raw array instead of the paginated object.
+         *     </Info>
+         *
+         *     This endpoint uses the generic pagination response format unless `full_result` is present.
+         */
+        get: operations['list-recipes'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/item/recipe/search': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Search recipe database
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="error" minimal>1 hour</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>ITEMS</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *     <Info>
+         *     `full_result` bypasses pagination and returns the full raw array instead of the paginated object.
+         *     </Info>
+         *
+         *     For range filters, an integer checks whether that value falls inside the stored recipe range. A one-value list behaves the same way. A two-value list matches any recipe whose stored range overlaps the requested range.
+         */
+        post: operations['search-recipes'];
         delete?: never;
         options?: never;
         head?: never;
@@ -593,6 +745,132 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    '/map/world-events': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List world events
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="success" minimal>2 minutes</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>MAP</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     The `schedule` field only contains the next visible run. The current schedule window is <Badge intent="success" minimal>15 minutes</Badge>. When no run starts inside that visibility window, `schedule` is `null`.
+         */
+        get: operations['list-world-events'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/map/camps': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List map camps
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="success" minimal>1 minute</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>MAP</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     <Info>
+         *     Use `level` to preview rewards for a specific level. The API picks the highest available preview threshold that does not exceed the requested level. If none match, it falls back to the lowest available threshold.
+         *     </Info>
+         */
+        get: operations['list-map-camps'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/map/raids': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List map raids
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="success" minimal>1 minute</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>MAP</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     <Info>
+         *     Use `level` to preview rewards for a specific level. The API picks the highest available preview threshold that does not exceed the requested level. If none match, it falls back to the lowest available threshold.
+         *     </Info>
+         */
+        get: operations['list-map-raids'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/map/loot-pools': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List map loot pools
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="success" minimal>2 minutes</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>MAP</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     <Info>
+         *     Use `level` to preview rewards for a specific level. The API picks the highest available preview threshold that does not exceed the requested level. If none match, it falls back to the lowest available threshold.
+         *     </Info>
+         */
+        get: operations['list-map-loot-pools'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    '/map/gathering-nodes': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List gathering nodes
+         * @description <Note>
+         *     This endpoint is cached for <Badge intent="error" minimal>1 hour</Badge> in the <Badge intent="success" minimal>SHARED</Badge> cache source.   See [Caching](/welcome#caching). <Indent></Indent> This endpoint belongs to the <Badge intent="warning" minimal>MAP</Badge> rate-limit bucket. See [Throttling and Rate Limits](/welcome#throttling-and-rate-limits).
+         *     </Note>
+         *
+         *     `type` distinguishes normal node spots from wall and corner placements used by the web map.
+         */
+        get: operations['list-gathering-nodes'];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     '/map/quests': {
         parameters: {
             query?: never;
@@ -688,6 +966,8 @@ export interface paths {
          *
          *     Some entries also include optional rank presentation fields such as `rank`, `supportRank`, `shortenedRank`, `legacyRankColour`, and `rankBadge`.
          *
+         *     Guild season leaderboard types are dynamic and use the `guildSeason...` format returned by `GET /leaderboards/types`, such as `guildSeason32`.
+         *
          *     Raid leaderboards include a score and gambits used. Completion starts at 200, then adds +10, +20, or +30 for each gambit.
          *
          *     `previousRanking` is stored daily depending on player activity. Subtracting `previousRanking` from the current ranking gives the player's leaderboard progression.
@@ -715,6 +995,10 @@ export interface paths {
          *     </Note>
          *
          *     Article content uses standard Markdown syntax alongside Discord-specific syntax such as timestamps. See Discord Markdown and timestamp formatting for supported syntax.
+         *
+         *     <Info>
+         *     Poll articles can include `question` content blocks. In those blocks, `content` can be either a plain string or a structured question object with answer options and requirements.
+         *     </Info>
          */
         get: operations['fetch-publisher-article'];
         put?: never;
@@ -934,7 +1218,7 @@ export interface components {
         };
         /** RaidList */
         RaidList: {
-            'Nest of the Grootslang'?: number;
+            'Nest of the Grootslangs'?: number;
             'Orphion\'s Nexus of Light'?: number;
             'The Canyon Colossus'?: number;
             'The Nameless Anomaly'?: number;
@@ -1138,6 +1422,66 @@ export interface components {
         AbilityMapPages: {
             [key: string]: components['schemas']['AbilityMapNode'][];
         };
+        /** OAuthApplication */
+        OAuthApplication: {
+            client_id: string;
+            scopes: string[];
+        };
+        /** OAuthProfile */
+        OAuthProfile: {
+            username: string;
+            primary: boolean;
+            rank: string;
+            supportRank: string | null;
+            shortenedRank: string;
+            legacyRankColour: components['schemas']['LegacyRankColour'];
+            rankBadge: string;
+            accessRules: {
+                [key: string]: string;
+            };
+        };
+        /** OAuthMeResponse */
+        OAuthMeResponse: {
+            application: components['schemas']['OAuthApplication'];
+            profiles: {
+                [key: string]: components['schemas']['OAuthProfile'];
+            };
+        };
+        /**
+         * OAuthTokenExchangeRequestGrantType
+         * @description Only `authorization_code` is supported.
+         * @enum {string}
+         */
+        OAuthTokenExchangeRequestGrantType: 'authorization_code';
+        /** OAuthTokenExchangeRequest */
+        OAuthTokenExchangeRequest: {
+            /** @description Only `authorization_code` is supported. */
+            grant_type: components['schemas']['OAuthTokenExchangeRequestGrantType'];
+            /** @description One-time authorization code. Expires after 5 minutes. */
+            code: string;
+            /**
+             * Format: uri
+             * @description Must match the redirect URI used during authorization.
+             */
+            redirect_uri: string;
+            client_id: string;
+            /** @description Required for private applications. Must not be sent by public applications. */
+            client_secret?: string;
+            /** @description Required for public applications and for any authorization code created with PKCE. */
+            code_verifier?: string;
+        };
+        /**
+         * OAuthTokenResponseTokenType
+         * @enum {string}
+         */
+        OAuthTokenResponseTokenType: 'bearer';
+        /** OAuthTokenResponse */
+        OAuthTokenResponse: {
+            access_token: string;
+            token_type: components['schemas']['OAuthTokenResponseTokenType'];
+            /** @description Space-delimited granted scopes. */
+            scope: string;
+        };
         /**
          * GuildListGuildGetParametersIdentifier
          * @enum {string}
@@ -1170,7 +1514,29 @@ export interface components {
             uuid: string;
             name: string;
             prefix: string;
+            /** @description Territory name of the current headquarters for the owning guild. */
+            hq: string;
         };
+        /**
+         * TerritoryResourceType
+         * @enum {string}
+         */
+        TerritoryResourceType: 'EMERALD' | 'ORE' | 'WOOD' | 'FISH' | 'CROP';
+        /** TerritoryResource */
+        TerritoryResource: {
+            type: components['schemas']['TerritoryResourceType'];
+            /** @description Amount generated per hour. */
+            generation: number;
+            /** @description Amount currently stored. */
+            stored: number;
+            /** @description Maximum amount the territory can hold. */
+            limit: number;
+        };
+        /**
+         * TerritoryStorageLevel
+         * @enum {string}
+         */
+        TerritoryStorageLevel: 'VERY_LOW' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
         /** TerritoryLocation */
         TerritoryLocation: {
             start: unknown[];
@@ -1181,7 +1547,54 @@ export interface components {
             guild: components['schemas']['TerritoryGuildReference'];
             /** Format: date-time */
             acquired: string;
+            /** @description Whether this territory is currently a headquarters. */
+            hq: boolean;
+            resources: components['schemas']['TerritoryResource'][];
+            /** @description Connected territory names for the current territory. */
+            links: string[];
+            treasury: components['schemas']['TerritoryStorageLevel'];
+            defences: components['schemas']['TerritoryStorageLevel'];
             location: components['schemas']['TerritoryLocation'];
+        };
+        /**
+         * GuildSeasonRewardConditionType
+         * @enum {string}
+         */
+        GuildSeasonRewardConditionType: 'SR' | 'LEADERBOARD_POSITION';
+        /** GuildSeasonRewardCondition */
+        GuildSeasonRewardCondition: {
+            type: components['schemas']['GuildSeasonRewardConditionType'];
+            value: number;
+        };
+        /**
+         * GuildSeasonRewardType
+         * @enum {string}
+         */
+        GuildSeasonRewardType: 'BADGE' | 'EFFECT' | 'COSMETIC' | 'EMERALD' | 'PRIVATE_BANK_SLOT' | 'PUBLIC_BANK_SLOT' | 'GUILD_TOME' | 'STRUCTURE';
+        /** GuildSeasonRewardValue */
+        GuildSeasonRewardValue: number | string;
+        /** GuildSeasonReward */
+        GuildSeasonReward: {
+            condition: components['schemas']['GuildSeasonRewardCondition'];
+            type: components['schemas']['GuildSeasonRewardType'];
+            value: components['schemas']['GuildSeasonRewardValue'] | null;
+            /** Format: date-time */
+            expires: string | null;
+        };
+        /** GuildSeasonDefinition */
+        GuildSeasonDefinition: {
+            /** Format: date-time */
+            initDate?: string | null;
+            /** Format: date-time */
+            endDate?: string | null;
+            territoryHoldingSrPerHour: number;
+            srPerWar: number;
+            ratingRewards: components['schemas']['GuildSeasonReward'][];
+            leaderboardRewards: components['schemas']['GuildSeasonReward'][];
+        };
+        /** GuildSeasonList */
+        GuildSeasonList: {
+            [key: string]: components['schemas']['GuildSeasonDefinition'];
         };
         /**
          * GuildPrefixQueryGetParametersIdentifier
@@ -1210,6 +1623,9 @@ export interface components {
             caves?: number;
             completedQuests?: number;
             pvp?: components['schemas']['PvpStats'];
+            /** @description Guild raids completed while the player was in this guild only. */
+            currentGuildRaids?: components['schemas']['RaidCountList'] | null;
+            /** @description All guild raids completed by the player across every guild. */
             guildRaids?: components['schemas']['RaidCountList'] | null;
             /** Format: double */
             playtime?: number;
@@ -1218,7 +1634,7 @@ export interface components {
         GuildMemberRestrictions: {
             online_status?: boolean;
             main_access?: boolean;
-            weekly_access?: boolean;
+            guild_high_ranked_access?: boolean;
         };
         /** GuildMember */
         GuildMember: {
@@ -1461,7 +1877,7 @@ export interface components {
          * ItemMajorIdKey
          * @enum {string}
          */
-        ItemMajorIdKey: 'evershot' | 'forestSBlessing' | 'fallout' | 'twistingThreads' | 'pioneerSEcho' | 'altruism' | 'freerunner' | 'vedette' | 'realityRevision' | 'seekingModule' | 'fission' | 'freneticSpirit' | 'netShot' | 'deathSentence' | 'regicide' | 'selfSufficient' | 'napalm' | 'riverofSouls' | 'comboStomp' | 'gunkShot' | 'heartbeat' | 'methodical' | 'fantheHammer' | 'wormhole' | 'punishment' | 'grandInfluence' | 'cherryBombs' | 'greed' | 'windsurf' | 'hurricaneSEye' | 'sorcery' | 'rovingAssassin' | 'transcendence' | 'efflorescence' | 'spaceGlide' | 'heatShimmer' | 'soulEater' | 'juggle' | 'flurryofBlows' | 'incisionElegy' | 'lightningCrash' | 'livingMuseum' | 'manicEdge' | 'enlightenment' | 'ignitionWhirlwind' | 'lifestream' | 'peacefulEffigy' | 'stringsofFate' | 'ergosphere' | 'deadWeight' | 'sublimation' | 'furiousEffigy' | 'faustianGambit' | 'totemicFuse' | 'geocentrism' | 'gruesomeKnots' | 'starcrossed' | 'chaosReach' | 'flainRemnants' | 'litFuse' | 'rally' | 'hellfire' | 'paragon' | 'divineHonor' | 'trollBarge' | 'tidalDrift' | 'guardian' | 'lastResort' | 'saviourSSacrifice' | 'scarceComfort' | 'vitriol' | 'tackle' | 'divineRight' | 'slowBoil' | 'stagnantAir' | 'oldSpark' | 'oneselfUntoAll' | 'temblor' | 'overwhelm' | 'meteorCrash' | 'earthenSplinter' | 'entropy' | 'fixate' | 'lustrate' | 'inversion' | 'cosmicCapture' | 'orbitalChain' | 'perfectRecall' | 'gravityWell' | 'displace' | 'lockdown' | 'plague' | 'solarWind' | 'wavebreak' | 'ÖŽ' | 'gentleGlow' | 'blindingLights' | 'oneiro' | 'dauntlessInferno' | 'fissure' | 'flashfreeze' | 'perilousFlare' | 'explosiveImpact' | 'escapeRoute' | 'lightweight' | 'pirouette' | 'lunge' | 'taunt' | 'desperateMeasures' | 'rockShield' | 'cannulate' | 'snowySteps' | 'phoenixBorn' | 'superconductor' | 'magnet' | 'alterEgo' | 'mangle' | 'intangible' | 'iceStorm' | 'pounce' | 'hawkeye' | 'orbwalk' | 'burntShadows' | 'frightorFlight' | 'festiveSpirit' | 'sunEater' | 'recklessAbandon' | 'expunge' | 'brachiate' | 'rustedIchor' | 'findThyself' | 'madness' | 'clamber' | 'splitSecond' | 'spectralMemory' | 'insoluble' | 'boundbyBlood' | 'mobMentality' | 'lasso' | 'coagulate' | 'flightBurst' | 'culicidaeCreed' | 'powerFist' | 'brutalBlow';
+        ItemMajorIdKey: 'evershot' | 'forestSBlessing' | 'fallout' | 'twistingThreads' | 'pioneerSEcho' | 'altruism' | 'freerunner' | 'vedette' | 'realityRevision' | 'seekingModule' | 'fission' | 'freneticSpirit' | 'netShot' | 'deathSentence' | 'regicide' | 'selfSufficient' | 'napalm' | 'riverofSouls' | 'comboStomp' | 'gunkShot' | 'heartbeat' | 'methodical' | 'fantheHammer' | 'wormhole' | 'punishment' | 'grandInfluence' | 'cherryBombs' | 'greed' | 'windsurf' | 'hurricaneSEye' | 'sorcery' | 'rovingAssassin' | 'transcendence' | 'efflorescence' | 'spaceGlide' | 'heatShimmer' | 'soulEater' | 'juggle' | 'flurryofBlows' | 'incisionElegy' | 'lightningCrash' | 'livingMuseum' | 'manicEdge' | 'enlightenment' | 'ignitionWhirlwind' | 'lifestream' | 'peacefulEffigy' | 'stringsofFate' | 'ergosphere' | 'deadWeight' | 'sublimation' | 'furiousEffigy' | 'faustianGambit' | 'totemicFuse' | 'geocentrism' | 'gruesomeKnots' | 'starcrossed' | 'chaosReach' | 'flainRemnants' | 'litFuse' | 'rally' | 'hellfire' | 'paragon' | 'divineHonor' | 'trollBarge' | 'tidalDrift' | 'guardian' | 'lastResort' | 'saviourSSacrifice' | 'scarceComfort' | 'vitriol' | 'tackle' | 'divineRight' | 'slowBoil' | 'stagnantAir' | 'oldSpark' | 'oneselfUntoAll' | 'temblor' | 'overwhelm' | 'meteorCrash' | 'earthenSplinter' | 'entropy' | 'fixate' | 'lustrate' | 'inversion' | 'cosmicCapture' | 'orbitalChain' | 'perfectRecall' | 'gravityWell' | 'displace' | 'lockdown' | 'plague' | 'solarWind' | 'wavebreak' | '֎' | 'gentleGlow' | 'blindingLights' | 'oneiro' | 'dauntlessInferno' | 'fissure' | 'flashfreeze' | 'perilousFlare' | 'explosiveImpact' | 'escapeRoute' | 'lightweight' | 'pirouette' | 'lunge' | 'taunt' | 'desperateMeasures' | 'rockShield' | 'cannulate' | 'snowySteps' | 'phoenixBorn' | 'superconductor' | 'magnet' | 'alterEgo' | 'mangle' | 'intangible' | 'iceStorm' | 'pounce' | 'hawkeye' | 'orbwalk' | 'burntShadows' | 'frightorFlight' | 'festiveSpirit' | 'sunEater' | 'recklessAbandon' | 'expunge' | 'brachiate' | 'rustedIchor' | 'findThyself' | 'madness' | 'clamber' | 'splitSecond' | 'spectralMemory' | 'insoluble' | 'boundbyBlood' | 'mobMentality' | 'lasso' | 'coagulate' | 'flightBurst' | 'culicidaeCreed' | 'powerFist' | 'brutalBlow';
         /** ItemSearchRequestMajorIds1 */
         ItemSearchRequestMajorIds1: components['schemas']['ItemMajorIdKey'][];
         /** ItemSearchRequestMajorIds */
@@ -1476,6 +1892,81 @@ export interface components {
             professions?: components['schemas']['ItemSearchRequestProfessions'];
             identifications?: components['schemas']['ItemSearchRequestIdentifications'];
             majorIds?: components['schemas']['ItemSearchRequestMajorIds'];
+        };
+        /**
+         * ItemRecipeDatabaseGetParametersFullResult
+         * @enum {string}
+         */
+        ItemRecipeDatabaseGetParametersFullResult: '';
+        /** IntegerRange */
+        IntegerRange: {
+            minimum: number;
+            maximum: number;
+        };
+        /** RecipeMaterial */
+        RecipeMaterial: {
+            item: string;
+            amount: number;
+        };
+        /** RecipeSpriteValue */
+        RecipeSpriteValue: {
+            id: string;
+            customModelData: number;
+            name: string;
+        };
+        /** RecipeSprite */
+        RecipeSprite: {
+            format: string;
+            value: components['schemas']['RecipeSpriteValue'];
+            name: string;
+        };
+        /** Recipe */
+        Recipe: {
+            internalName: string;
+            type: string;
+            skill: string;
+            level: components['schemas']['IntegerRange'];
+            durability?: components['schemas']['IntegerRange'];
+            materials: components['schemas']['RecipeMaterial'][];
+            healthOrDamage: components['schemas']['IntegerRange'];
+            duration?: components['schemas']['IntegerRange'];
+            basicDuration?: components['schemas']['IntegerRange'];
+            sprites: {
+                [key: string]: components['schemas']['RecipeSprite'];
+            };
+            xp: number;
+        };
+        /** RecipeDatabaseFull */
+        RecipeDatabaseFull: components['schemas']['Recipe'][];
+        /** PaginatedRecipeResponse */
+        PaginatedRecipeResponse: {
+            controller: components['schemas']['PaginationController'];
+            results: components['schemas']['RecipeDatabaseFull'];
+        };
+        /**
+         * ItemRecipeSearchPostParametersFullResult
+         * @enum {string}
+         */
+        ItemRecipeSearchPostParametersFullResult: '';
+        /** SearchScalarOrList */
+        SearchScalarOrList: string | string[];
+        /** SearchIntegerOrRange */
+        SearchIntegerOrRange: number | number[];
+        /** RecipeSearchRequest */
+        RecipeSearchRequest: {
+            /** @description Match recipe `internalName` values by partial name, such as `1-3` or `Bow1-3`. */
+            query?: components['schemas']['SearchScalarOrList'];
+            /** @description Match an exact XP value or an inclusive XP range. */
+            xp?: components['schemas']['SearchIntegerOrRange'];
+            type?: components['schemas']['SearchScalarOrList'];
+            skill?: components['schemas']['SearchScalarOrList'];
+            /** @description Match material item names, case-insensitive. */
+            materials?: components['schemas']['SearchScalarOrList'];
+            level?: components['schemas']['SearchIntegerOrRange'];
+            durability?: components['schemas']['SearchIntegerOrRange'];
+            healthOrDamage?: components['schemas']['SearchIntegerOrRange'];
+            duration?: components['schemas']['SearchIntegerOrRange'];
+            basicDuration?: components['schemas']['SearchIntegerOrRange'];
         };
         /** ItemMetadataFilters */
         ItemMetadataFilters: {
@@ -1668,6 +2159,103 @@ export interface components {
             party: components['schemas']['PlayerLocationMember'][];
             guild: components['schemas']['PlayerLocationMember'][];
         };
+        /** WorldEventRequirementValue */
+        WorldEventRequirementValue: number | string;
+        /** WorldEventRequirement */
+        WorldEventRequirement: {
+            type: string;
+            value: components['schemas']['WorldEventRequirementValue'];
+        };
+        /** MapCoordinate3D */
+        MapCoordinate3D: {
+            x: number;
+            y: number;
+            z: number;
+        };
+        /** WorldEventLocation */
+        WorldEventLocation: {
+            event: components['schemas']['MapCoordinate3D'] | null;
+            spawn: components['schemas']['MapCoordinate3D'] | null;
+            reward: components['schemas']['MapCoordinate3D'] | null;
+            radius: number | null;
+            spawnRadius: number | null;
+        };
+        /** WorldEvent */
+        WorldEvent: {
+            name: string;
+            internalName: string;
+            lore: string;
+            difficulty: string | null;
+            level: number | null;
+            length: string | null;
+            rewardPerLevel: {
+                [key: string]: string[];
+            } | null;
+            requirements: components['schemas']['WorldEventRequirement'][] | null;
+            location: components['schemas']['WorldEventLocation'][];
+            /** Format: date-time */
+            schedule: string | null;
+        };
+        /**
+         * MapLootPoolContentType
+         * @enum {string}
+         */
+        MapLootPoolContentType: 'CAMP' | 'RAID';
+        /**
+         * LootPoolRewardType
+         * @enum {string}
+         */
+        LootPoolRewardType: 'ASPECT' | 'CURRENCY' | 'INGREDIENT' | 'ITEM' | 'TOME' | 'WARD';
+        /** LootPoolReward */
+        LootPoolReward: {
+            name: string;
+            type: components['schemas']['LootPoolRewardType'];
+            amount: number;
+            /** @description Whether this reward is granted automatically without player action. */
+            always: boolean;
+            tier?: string | null;
+            shiny?: boolean;
+        };
+        /** MapLootPoolContent */
+        MapLootPoolContent: {
+            name: string;
+            internalName: string;
+            type: components['schemas']['MapLootPoolContentType'];
+            lore: string | null;
+            difficulty: string | null;
+            level: number | null;
+            length: string | null;
+            requirements: components['schemas']['WorldEventRequirement'][] | null;
+            location: components['schemas']['MapCoordinate3D'] | null;
+            rewards: components['schemas']['LootPoolReward'][];
+        };
+        /**
+         * LootPoolType
+         * @enum {string}
+         */
+        LootPoolType: 'CAMP' | 'RAID';
+        /** LootPool */
+        LootPool: {
+            name: string;
+            internalName: string;
+            type: components['schemas']['LootPoolType'];
+            rewards: components['schemas']['LootPoolReward'][];
+        };
+        /**
+         * GatheringNodeType
+         * @enum {string}
+         */
+        GatheringNodeType: 'NODE' | 'WALL' | 'CORNER';
+        /** GatheringNode */
+        GatheringNode: {
+            x: number;
+            y: number;
+            z: number;
+            angle: number;
+            type: components['schemas']['GatheringNodeType'];
+            resource: string;
+            level: number;
+        };
         /** Map_getQuestCount_Response_200 */
         Map_getQuestCount_Response_200: {
             quests: number;
@@ -1732,8 +2320,13 @@ export interface components {
             completions: number;
             gambits: number;
         };
+        /** LeaderboardMetadataGuildSeason */
+        LeaderboardMetadataGuildSeason: {
+            seasonName: string;
+            position: number;
+        };
         /** LeaderboardMetadata */
-        LeaderboardMetadata: components['schemas']['LeaderboardMetadataXpPlaytime'] | components['schemas']['LeaderboardMetadataTotalLevelXpPlaytime'] | components['schemas']['LeaderboardMetadataPlaytime'] | components['schemas']['LeaderboardMetadataCompletionsGambits'];
+        LeaderboardMetadata: components['schemas']['LeaderboardMetadataXpPlaytime'] | components['schemas']['LeaderboardMetadataTotalLevelXpPlaytime'] | components['schemas']['LeaderboardMetadataPlaytime'] | components['schemas']['LeaderboardMetadataCompletionsGambits'] | components['schemas']['LeaderboardMetadataGuildSeason'];
         /** GuildEntry */
         GuildEntry: {
             metaScore: number;
@@ -1789,15 +2382,50 @@ export interface components {
          * PublisherArticleType
          * @enum {string}
          */
-        PublisherArticleType: 'blog' | 'event' | 'giveaway' | 'article';
+        PublisherArticleType: 'blog' | 'event' | 'giveaway' | 'article' | 'poll';
+        /**
+         * PublisherPollRequirementType
+         * @enum {string}
+         */
+        PublisherPollRequirementType: 'highest_level' | 'account_age' | 'content_completion';
+        /**
+         * PublisherPollRequirementSubType
+         * @enum {string}
+         */
+        PublisherPollRequirementSubType: 'combat' | 'alchemism' | 'armouring' | 'cooking' | 'farming' | 'fishing' | 'jeweling' | 'mining' | 'scribing' | 'tailoring' | 'weaponsmithing' | 'woodcutting' | 'woodworking' | 'orphion' | 'fruma' | 'colossus' | 'grootslang' | 'nameless' | 'orphion_guild' | 'fruma_guild' | 'colossus_guild' | 'grootslang_guild' | 'nameless_guild';
+        /** PublisherPollRequirement */
+        PublisherPollRequirement: {
+            type: components['schemas']['PublisherPollRequirementType'];
+            subType: components['schemas']['PublisherPollRequirementSubType'];
+            value: number;
+        };
+        /** PublisherPollQuestion */
+        PublisherPollQuestion: {
+            answers: {
+                [key: string]: string;
+            };
+            override: boolean;
+            question: string;
+            requirements: components['schemas']['PublisherPollRequirement'][];
+        };
+        /**
+         * PublisherArticleContentBlockContent
+         * @description Markdown content for standard blocks, or a structured question object for `question` blocks in poll articles.
+         */
+        PublisherArticleContentBlockContent: string | components['schemas']['PublisherPollQuestion'];
         /** PublisherArticleContentBlock */
         PublisherArticleContentBlock: {
             id: string;
             type: string;
             focus: boolean;
-            content: string;
+            /** @description Markdown content for standard blocks, or a structured question object for `question` blocks in poll articles. */
+            content: components['schemas']['PublisherArticleContentBlockContent'];
             discord: boolean;
             website: boolean;
+        };
+        /** PublisherPollVotes */
+        PublisherPollVotes: {
+            total: number;
         };
         /** PublisherArticle */
         PublisherArticle: {
@@ -1827,6 +2455,12 @@ export interface components {
             published_at: string;
             require_discord: boolean;
             require_clan: boolean;
+            /** @description List of global requirements for poll questions if the article is a poll. */
+            poll_settings?: components['schemas']['PublisherPollRequirement'][];
+            /** @description Whether poll vote totals are publicly visible. */
+            poll_public?: boolean;
+            /** @description Returned when `poll_public` is true. */
+            votes?: components['schemas']['PublisherPollVotes'] | null;
         };
         /** PublisherArticleSummary */
         PublisherArticleSummary: {
@@ -2122,6 +2756,50 @@ export interface operations {
             };
         };
     };
+    'get-oauth-identity': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OAuth2 application context and linked profiles. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['OAuthMeResponse'];
+                };
+            };
+        };
+    };
+    'exchange-oauth-token': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                'application/json': components['schemas']['OAuthTokenExchangeRequest'];
+            };
+        };
+        responses: {
+            /** @description OAuth2 access token exchange result. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['OAuthTokenResponse'];
+                };
+            };
+        };
+    };
     'list-guilds': {
         parameters: {
             query?: {
@@ -2172,6 +2850,26 @@ export interface operations {
                 };
                 content: {
                     'application/json': components['schemas']['Error'];
+                };
+            };
+        };
+    };
+    'list-guild-seasons': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Guild season definitions keyed by season name. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['GuildSeasonList'];
                 };
             };
         };
@@ -2378,6 +3076,76 @@ export interface operations {
                 };
             };
             /** @description No items matched the query. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['Error'];
+                };
+            };
+        };
+    };
+    'list-recipes': {
+        parameters: {
+            query?: {
+                page?: number;
+                /** @description Presence-based flag that expands responses. Send it without a value as `?full_result`. Using `?full_result=true` or `?full_result=false` is not accepted. */
+                full_result?: components['schemas']['ItemRecipeDatabaseGetParametersFullResult'];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Paginated recipe list. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['PaginatedRecipeResponse'];
+                };
+            };
+        };
+    };
+    'search-recipes': {
+        parameters: {
+            query?: {
+                page?: number;
+                /** @description Presence-based flag that expands responses. Send it without a value as `?full_result`. Using `?full_result=true` or `?full_result=false` is not accepted. */
+                full_result?: components['schemas']['ItemRecipeSearchPostParametersFullResult'];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                'application/json': components['schemas']['RecipeSearchRequest'];
+            };
+        };
+        responses: {
+            /** @description Paginated search results. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['PaginatedRecipeResponse'];
+                };
+            };
+            /** @description Invalid request payload. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['Error'];
+                };
+            };
+            /** @description No recipes matched the request. */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2642,6 +3410,115 @@ export interface operations {
                 };
                 content: {
                     'application/json': components['schemas']['Error'];
+                };
+            };
+        };
+    };
+    'list-world-events': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description World event metadata and next visible schedules. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['WorldEvent'][];
+                };
+            };
+        };
+    };
+    'list-map-camps': {
+        parameters: {
+            query?: {
+                /** @description Preview level used when rendering loot-pool rewards. Invalid values are ignored. */
+                level?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Camp metadata and reward previews. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['MapLootPoolContent'][];
+                };
+            };
+        };
+    };
+    'list-map-raids': {
+        parameters: {
+            query?: {
+                /** @description Preview level used when rendering loot-pool rewards. Invalid values are ignored. */
+                level?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Raid metadata and reward previews. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['MapLootPoolContent'][];
+                };
+            };
+        };
+    };
+    'list-map-loot-pools': {
+        parameters: {
+            query?: {
+                /** @description Preview level used when rendering loot-pool rewards. Invalid values are ignored. */
+                level?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Camp and raid loot-pool previews. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['LootPool'][];
+                };
+            };
+        };
+    };
+    'list-gathering-nodes': {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Gathering node positions. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    'application/json': components['schemas']['GatheringNode'][];
                 };
             };
         };

@@ -19,6 +19,17 @@
   },
   "components": {
     "schemas": {
+      "GlobalSearchResult": {
+        "properties": {
+          "players": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "undefined",
+              "$ref": "#/components/schemas/SearchPlayerResult"
+            }
+          }
+        }
+      },
       "PlayerMultiSelector": {
         "allOf": [
           {
@@ -58,6 +69,22 @@
             "$ref": "#/components/schemas/Player/properties/rankBadge"
           }
         }
+      },
+      "SearchPlayerResult": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "rank"
+        ],
+        "title": "SearchPlayerResult"
       }
     }
   }

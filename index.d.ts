@@ -2275,26 +2275,6 @@ export interface components {
             start: unknown[];
             end: unknown[];
         };
-        /** GlobalSearchResult */
-        GlobalSearchResult: {
-            query: string;
-            players?: {
-                [key: string]: string;
-            };
-            guilds?: {
-                [key: string]: components['schemas']['SearchGuildResult'];
-            };
-            items?: components['schemas']['ItemDatabaseFull'];
-            guildsPrefix?: {
-                [key: string]: components['schemas']['SearchGuildResult'];
-            };
-            territories?: {
-                [key: string]: components['schemas']['SearchTerritoryResult'];
-            };
-            discoveries?: {
-                [key: string]: components['schemas']['SearchDiscoveryResult'];
-            };
-        };
         /** GuildEntryScore */
         GuildEntryScore: number;
         /** LeaderboardMetadataXpPlaytime */
@@ -2497,6 +2477,26 @@ export interface components {
             content: string;
             comments: string;
         };
+        /** GlobalSearchResult */
+        GlobalSearchResult: {
+            query: string;
+            guilds?: {
+                [key: string]: components['schemas']['SearchGuildResult'];
+            };
+            items?: components['schemas']['ItemDatabaseFull'];
+            guildsPrefix?: {
+                [key: string]: components['schemas']['SearchGuildResult'];
+            };
+            territories?: {
+                [key: string]: components['schemas']['SearchTerritoryResult'];
+            };
+            discoveries?: {
+                [key: string]: components['schemas']['SearchDiscoveryResult'];
+            };
+            players?: {
+                [key: string]: components['schemas']['SearchPlayerResult'];
+            };
+        };
         PlayerMultiSelector: components['schemas']['Error'] & {
             objects?: {
                 [key: string]: components['schemas']['PlayerMultiSelectorPartialPlayer'];
@@ -2509,6 +2509,11 @@ export interface components {
             shortenedRank?: components['schemas']['Player']['shortenedRank'];
             legacyRankColour?: components['schemas']['Player']['legacyRankColour'];
             rankBadge?: components['schemas']['Player']['rankBadge'];
+        };
+        /** SearchPlayerResult */
+        SearchPlayerResult: {
+            username: string;
+            rank: string;
         };
     };
     responses: never;
